@@ -29,15 +29,15 @@ jobs:
         working-directory: Application
         run: npm run build -- --base-href=/feature1/
 
-      - name: Find Angular build folder
+      - name: Find Angular output
+        id: find-output
         run: |
-          echo "===== ALL DIST FOLDERS ====="
-          find . -type d -name "dist" -print
-          echo "===== ALL INDEX FILES ====="
-          find . -type f -name "index.html" -print
+          OUTPUT=$(find Application/dist -type f -name "index.html" -printf '%h\n' | head -n 1)
+          echo "Angular output folder: $OUTPUT"
+          echo "output=$OUTPUT" >> $GITHUB_OUTPUT
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Application/dist/application/browser
+          publish_dir: ${{ steps.find-output.outputs.output }}
