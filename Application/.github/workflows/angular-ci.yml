@@ -3,5 +3,13 @@
 
 - name: Check build output
   run: |
+    echo "Current directory:"
     pwd
-    ls -R dist
+    echo "Dist contents:"
+    find dist -maxdepth 5 -type f
+
+- name: Deploy to GitHub Pages
+  uses: peaceiris/actions-gh-pages@v4
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./Application/dist/application/browser
