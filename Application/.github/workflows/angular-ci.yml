@@ -2,10 +2,6 @@
   run: npm run build -- --base-href=/feature1/
 
 - name: Check build output
-  run: ls -R dist
-
-- name: Deploy to GitHub Pages
-  uses: peaceiris/actions-gh-pages@v4
-  with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: ./Application/dist/application/browser
+  run: |
+    pwd
+    ls -R dist
