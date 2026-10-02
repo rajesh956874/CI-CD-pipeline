@@ -1,20 +1,19 @@
-name: Angular CI
+name: Angular CI/CD
 
 on:
   push:
     branches:
-      - main
+      - feature/feature1
 
-  pull_request:
-    branches:
-      - main
+permissions:
+  contents: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -33,4 +32,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/application/browser      
+          publish_dir: ./dist/application/browser
